@@ -29,6 +29,17 @@ from sklearn.base import BaseEstimator,TransformerMixin
 from xgboost import XGBClassifier
 
 def load_data(database_filepath): 
+    """
+    Load data from SQLite database.
+
+    Args:
+    database_filepath: str. Filepath for the SQLite database wihch contains the data
+
+    Returns:
+    X: pd.Series. Feature data (messages).
+    Y: pd.DataFrame. Target data (categories).
+    category_names: list. List of category names for target data.
+    """
     engine = create_engine('sqlite:///' + database_filepath)
     df = df = pd.read_sql_table('DisasterResponse', engine)
     X = df['message']
@@ -37,6 +48,15 @@ def load_data(database_filepath):
     return X, Y, category_names
 
 def tokenize(text):
+    """
+    Normalise, tokenise, and lemmatise text strings
+
+    Args:
+    text: str. Text data to be tokenised.
+
+    Returns:
+    clean_tokens: list. List of clean tokens extracted from text.
+    """
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     detected_urls = re.findall(url_regex, text)
     
@@ -50,6 +70,12 @@ def tokenize(text):
     return clean_tokens
 
 def build_model():
+    """
+    Build a ML pipeline, set parameters and perform grid search and cross validation.
+
+    Returns:
+    model: GridSearchCV. Grid search model object.
+    """
     pipeline = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -65,6 +91,15 @@ def build_model():
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    """
+    Evaluate the model performance on test data.
+
+    Args:
+    model: sklearn.model. Trained model.
+    X_test: pd.Series. Test feature data.
+    Y_test: pd.DataFrame. Test target data.
+    category_names: list. List of category names for target data.
+    """
     y_pred = model.predict(X_test)
     for i, col in enumerate(category_names):
         print(f'{col}\n', 
@@ -72,6 +107,13 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+    """
+    Save the trained model as a pickle file.
+
+    Args:
+    model: sklearn.model. Trained model to be saved.
+    model_filepath: str. Filepath where the model is saved. 
+    """
     with open(model_filepath, 'wb') as file:
         pickle.dump(model, file)
 

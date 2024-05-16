@@ -41,7 +41,10 @@ def clean_data(df):
     for column in categories:
         categories[column] = categories[column].str[-1]
         categories[column] = categories[column].astype(int)
-    
+        
+    # Replace category values of '2' to 1 as they don't make sense
+    categories.replace(2, 1, inplace=True)
+
     df.drop('categories', axis=1, inplace=True)
     df = pd.concat([df, categories], axis=1)
     df = df.drop_duplicates() # Drop duplicates
