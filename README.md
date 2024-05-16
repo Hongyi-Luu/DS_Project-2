@@ -1,5 +1,7 @@
 # Disaster Response Pipeline Project
 
+![WebApp_vis](WebApp_vis.png)
+
 ### Table of Contents
 
 1. [Project Descriptions](#descriptions)
@@ -12,7 +14,7 @@
 
 This project builds ETL and ML pipelines to categorise real-time disaster messages. The main goal is to help disaster response organisations to prioritise and efficiently allocate resources based on the categorisation of incoming messages during a disaster. The project includes data cleaning, model training, and a web application to classify messages. An example of such an API to classify disaster messages is shown below. 
 
-![WebApp_vis](WebApp_vis.png)
+![describe_training](describe_training.png)
 
 ## Installation <a name="installation"></a>
 
