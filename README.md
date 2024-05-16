@@ -16,6 +16,8 @@ This project builds ETL and ML pipelines to categorise real-time disaster messag
 
 ![describe_training](describe_training.png)
 
+![top_15_response](top_15_response.png)
+
 ## Installation <a name="installation"></a>
 
 Beyond the Anaconda distribution, this project requires several Python libraries to be installed. These include:
